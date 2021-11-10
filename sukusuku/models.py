@@ -30,3 +30,10 @@ class GroupDetails(models.Model):
     def __str__(self):
         return '<GroupDetails:id=' + str(self.id) + ', ' + str(self.userid) + ':' + str(self.groupid) + '>'
 
+class Subject(models.Model):
+    subjectid = models.CharField(max_length=10,primary_key=True)
+    subjectname = models.CharField(max_length=200)
+    subjectnote = models.CharField(max_length=200,default='なし')
+
+    def __str__(self):
+        return '<Subject:subjectid=' + str(self.subjectid) + ', ' + self.subjectname + '>'
