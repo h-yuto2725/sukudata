@@ -11,7 +11,7 @@ def find(request):
     json_str = json.dumps(data, ensure_ascii=False, indent=2) 
     return HttpResponse(json_str)
 
-def create(request): #メールアドレスで検索を行いJsonファイルでuser情報を表示する。
+def create(request): 
     subjectid = request.GET['subjectid']
     subjectname = request.GET['subjectname']
     subjectnote = request.GET['subjectnote']

@@ -1,7 +1,6 @@
 from django.contrib import admin
 from django.urls import path
-from .views import login
-from .views import student,subject
+from .views import login,student,subject,group
 
 urlpatterns = [
     #学生
@@ -13,4 +12,8 @@ urlpatterns = [
     path('sball/',subject.find,name='sball'),
     path('sbadd/',subject.create,name='sbadd'),
     path('sbdel/',subject.delete,name='sbdel'),
+    #グループ
+    path('glall/',group.find,name='glall'),
+    path('gladd/',group.create,name='gladd'),
+    path('gldel/',group.delete,name='gldel'),
 ]   
