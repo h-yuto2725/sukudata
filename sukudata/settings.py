@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'corsheaders',
     'sukusuku',
     'django_mysql',
+    'import_export',
 ]
 
 CORS_ORIGIN_WHITELIST = [
@@ -48,6 +49,8 @@ CORS_ORIGIN_WHITELIST = [
 ]
 
 CORS_ALLOW_CREDENTIALS = True
+
+IMPORT_EXPORT_IMPORT_PERMISSION_CODE = 'change'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
