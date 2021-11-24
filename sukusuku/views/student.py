@@ -5,6 +5,11 @@ from ..models import User,Roll
 import json
 
 # Create your views here.
+def find(request): #メールアドレスで検索を行いJsonファイルでuser情報を表示する。
+    data = list(User.objects.filter(userid__contains='st').values())
+    json_str = json.dumps(data, ensure_ascii=False, indent=2)
+    return HttpResponse(json_str)
+
 
 def create(request): #メールアドレスで検索を行いJsonファイルでuser情報を表示する。
     mail = request.GET['mail']

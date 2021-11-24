@@ -6,7 +6,7 @@ from .views import subject
 urlpatterns = [
     #学生
     path('', login.index , name='index'), #mailで検索
-    path('find/', login.find , name='find'), #useridで検索
+    path('stsel/', student.find , name='find'), 
     path('stadd/',student.create,name='stadd'),
     path('stdel/',student.delete,name='stdel'),
     #科目
