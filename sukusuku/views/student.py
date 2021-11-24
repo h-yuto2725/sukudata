@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.http import JsonResponse
-from ..models import User,Roll
+from ..models import User,Role
 import json
 
 # Create your views here.
@@ -14,10 +14,10 @@ def find(request): #メールアドレスで検索を行いJsonファイルでus
 def create(request): #メールアドレスで検索を行いJsonファイルでuser情報を表示する。
     mail = request.GET['mail']
     userid = request.GET['userid']
-    roll = request.GET['rollid_id']  
+    role = request.GET['roleid_id']  
     username = request.GET['username']
-    rolltemp = Roll.objects.get(rollid=roll)
-    users = User(userid=userid,mail=mail,rollid=rolltemp,username=username)
+    roletemp = Role.objects.get(roleid=role)
+    users = User(userid=userid,mail=mail,roleid=roletemp,username=username)
     users.save()
 
     data = list(User.objects.all().values())

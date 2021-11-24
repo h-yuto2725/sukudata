@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.http import JsonResponse
-from ..models import User,Roll
+from ..models import User,Role
 import json
 
 # Create your views here.

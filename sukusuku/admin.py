@@ -1,7 +1,7 @@
 from django.contrib import admin
 from import_export import resources
 from import_export.admin import ImportExportModelAdmin
-from .models import Roll
+from .models import Role
 from .models import User
 from .models import Group,GroupDetails
 #from .models import Subject
@@ -25,7 +25,7 @@ class TimetableAdmin(ImportExportModelAdmin):
     resource_class = TimetableResource
 
 # Register your models here.
-admin.site.register(Roll)
+admin.site.register(Role)
 admin.site.register(User,UserAdmin)
 admin.site.register(Group)
 admin.site.register(GroupDetails)

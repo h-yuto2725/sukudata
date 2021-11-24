@@ -1,16 +1,16 @@
 from django.db import models
 
-class Roll(models.Model):
-    rollid = models.CharField(max_length=10,primary_key=True)
-    rollname = models.CharField(max_length=10)
+class Role(models.Model):
+    roleid = models.CharField(max_length=10,primary_key=True)
+    rolename = models.CharField(max_length=10)
 
     def __str__(self):
-        return '<Roll:rollid=' + str(self.rollid) + ', ' + self.rollname + '>'
+        return '<Role:roleid=' + str(self.roleid) + ', ' + self.rolename + '>'
 
 class User(models.Model):
     userid = models.CharField(max_length=10,primary_key=True)
     mail = models.EmailField(max_length=200)
-    rollid = models.ForeignKey(Roll, on_delete=models.CASCADE)
+    roleid = models.ForeignKey(Role, on_delete=models.CASCADE)
     username = models.CharField(max_length=100)
     
     def __str__(self):
