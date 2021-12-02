@@ -6,9 +6,10 @@ from .models import User
 from .models import Group,GroupDetails
 #from .models import Subject
 from .models import Class,ClassDetails
-from .models import Timetable
+from .models import Timetable,Schedule,GroupSchedule
+from .models import Event,Todo
 
-  
+
 class    UserResource(resources.ModelResource):
     class Meta:
         model = User
@@ -29,7 +30,10 @@ admin.site.register(Role)
 admin.site.register(User,UserAdmin)
 admin.site.register(Group)
 admin.site.register(GroupDetails)
-#admin.site.register(Subject)
 admin.site.register(Class)
 admin.site.register(ClassDetails)
 admin.site.register(Timetable,TimetableAdmin)
+admin.site.register(Schedule)
+admin.site.register(GroupSchedule)
+admin.site.register(Event)
+admin.site.register(Todo)

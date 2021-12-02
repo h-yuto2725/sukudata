@@ -18,7 +18,7 @@ class User(models.Model):
 
 class Group(models.Model):
     groupid = models.CharField(max_length=10,primary_key=True)
-    groupname = models.CharField(max_length=10)
+    groupname = models.CharField(max_length=100)
 
     def __str__(self):
         return '<Group:groupid=' + str(self.groupid) + ', ' + self.groupname + '>'
@@ -30,19 +30,9 @@ class GroupDetails(models.Model):
     def __str__(self):
         return '<GroupDetails:id=' + str(self.id) + ', ' + str(self.userid) + ':' + str(self.groupid) + '>'
 
-"""
-class Subject(models.Model):
-    subjectid = models.CharField(max_length=10,primary_key=True)
-    subjectname = models.CharField(max_length=200)
-    subjectnote = models.CharField(max_length=200,default='なし')
-
-    def __str__(self):
-        return '<Subject:subjectid=' + str(self.subjectid) + ', ' + self.subjectname + '>'
-"""
-
 class Class(models.Model):
     classid = models.CharField(max_length=10,primary_key=True)
-    classname = models.CharField(max_length=10)
+    classname = models.CharField(max_length=100)
 
     def __str__(self):
         return '<Class:classid=' + str(self.classid) + ', ' + self.classname + '>'
@@ -64,3 +54,45 @@ class Timetable(models.Model):
     
     def __str__(self):
         return '<Timetable:title=' + str(self.title) + ', ' + self.details + '>'
+
+    class Meta:
+        unique_together = ('start', 'classid')
+
+class Schedule(models.Model):
+    userid = models.ForeignKey(User, on_delete=models.CASCADE)
+    title = models.CharField(max_length=10)
+    start = models.CharField(max_length=100)
+    end = models.CharField(max_length=100)
+    color = models.CharField(max_length=10)
+    details = models.CharField(max_length=100)
+    
+    def __str__(self):
+        return '<Schedule:title=' + str(self.title) + ', ' + self.userid + '>'
+
+class GroupSchedule(models.Model):
+    groupid = models.ForeignKey(Group, on_delete=models.CASCADE)
+    title = models.CharField(max_length=10)
+    start = models.CharField(max_length=100)
+    end = models.CharField(max_length=100)
+    color = models.CharField(max_length=10)
+    details = models.CharField(max_length=100)
+    
+    def __str__(self):
+        return '<GroupSchedule:title=' + str(self.title) + ', ' + self.groupid + '>'
+
+class Event(models.Model):
+    classid = models.ForeignKey(Class, on_delete=models.CASCADE)
+    title = models.CharField(max_length=10)
+    end = models.CharField(max_length=100)
+    details = models.CharField(max_length=100)
+    
+    def __str__(self):
+        return '<Event:title=' + str(self.title) + ', ' + self.classid + '>'
+
+class Todo(models.Model):
+    userid = models.ForeignKey(User, on_delete=models.CASCADE)
+    title = models.CharField(max_length=10)
+    done = models.BooleanField(default=False)
+
+    def __str__(self):
+        return '<Todo:title=' + str(self.title) + ', ' + self.userid + '>'
