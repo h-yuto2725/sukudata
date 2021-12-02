@@ -67,7 +67,7 @@ class Schedule(models.Model):
     details = models.CharField(max_length=100)
     
     def __str__(self):
-        return '<Schedule:title=' + str(self.title) + ', ' + self.userid + '>'
+        return '<Schedule:title=' + str(self.title) + ', ' + str(self.userid) + '>'
 
 class GroupSchedule(models.Model):
     groupid = models.ForeignKey(Group, on_delete=models.CASCADE)
@@ -78,7 +78,7 @@ class GroupSchedule(models.Model):
     details = models.CharField(max_length=100)
     
     def __str__(self):
-        return '<GroupSchedule:title=' + str(self.title) + ', ' + self.groupid + '>'
+        return '<GroupSchedule:title=' + str(self.title) + ', ' + str(self.groupid) + '>'
 
 class Event(models.Model):
     classid = models.ForeignKey(Class, on_delete=models.CASCADE)
