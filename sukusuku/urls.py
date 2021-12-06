@@ -10,6 +10,11 @@ urlpatterns = [
     path('stsel/', student.find , name='find'), 
     path('stadd/',student.create,name='stadd'),
     path('stdel/',student.delete,name='stdel'),
+    #管理者
+    path('', login.index , name='index'), #mailで検索
+    path('trsel/',teacher.find , name='find'), 
+    path('tradd/',teacher.create,name='tradd'),
+    path('rtdel/',teacher.delete,name='trdel'),
     #科目
     #path('sball/',subject.find,name='sball'),
     path('sbadd/',subject.create,name='sbadd'),
