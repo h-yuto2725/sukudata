@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.http import JsonResponse
-from ..models import GroupSchedule
+from ..models import GroupSchedule,Group
 import json
 
 # Create your views here.
@@ -18,10 +18,11 @@ def create(request):
     end = request.GET['end']
     color = request.GET['color']
     details = request.GET['details']
-    groupschedules = GroupSchedule(groupid=groupid,title=title,start=start,end=end,color=color,details=details)
+    groupidtemp = Group.objects.get(groupid=groupid)
+    groupschedules = GroupSchedule(groupid=groupidtemp,title=title,start=start,end=end,color=color,details=details)
     groupschedules.save()
 
-    data = list(GroupSchedule.filter(userid=userid).values())
+    data = list(GroupSchedule.filter(groupid=groupid).values())
     json_str = json.dumps(data, ensure_ascii=False, indent=2) 
     return HttpResponse(json_str)
 
