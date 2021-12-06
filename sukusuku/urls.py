@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.urls import path
 from .views import login,student,group
 from .views import subject
-from .views import privateschedule,groupschedule
+from .views import privateschedule,groupschedule,todo
 
 urlpatterns = [
     #学生
@@ -26,4 +26,7 @@ urlpatterns = [
     path('gssel/',groupschedule.create,name='gssel'),
     path('gsadd/',groupschedule.create,name='gsadd'),
     path('gsdel/',groupschedule.delete,name='gsdel'),
+    #Todo
+    path('tdsel/',todo.create,name='tdsel'),
+    path('tddel/',todo.delete,name='tddel'),
 ]   
