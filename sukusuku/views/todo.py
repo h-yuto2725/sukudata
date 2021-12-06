@@ -18,9 +18,8 @@ def create(request):
     return HttpResponse(json_str)
 
 def delete(request):
-    userid = request.GET['userid']
-    todoid = request.GET['todoid']
-    todo = Todo.objects.get(id=todoid)
+    id = request.GET['id']
+    todo = Todo.objects.get(id=id)
     todo.delete()
 
     data = list(Todo.filter(userid=userid).values())
