@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.urls import path
-from .views import login,student,group
+from .views import login,student,teacher,group
 from .views import subject
 from .views import privateschedule,groupschedule,todo
 
