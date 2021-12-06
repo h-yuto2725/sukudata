@@ -19,11 +19,11 @@ urlpatterns = [
     path('gladd/',group.create,name='gladd'),
     path('gldel/',group.delete,name='gldel'),
     #プライベートスケジュール
-    path('pssel/',privateschedule.create,name='pssel'),
+    path('pssel/',privateschedule.find,name='pssel'),
     path('psadd/',privateschedule.create,name='psadd'),
     path('psdel/',privateschedule.delete,name='psdel'),
     #グループスケジュール
-    path('gssel/',groupschedule.create,name='gssel'),
+    path('gssel/',groupschedule.find,name='gssel'),
     path('gsadd/',groupschedule.create,name='gsadd'),
     path('gsdel/',groupschedule.delete,name='gsdel'),
     #Todo

@@ -7,7 +7,7 @@ import json
 # Create your views here.
 def find(request): #学籍番号で検索を行いJsonファイルでgroupschedule情報を表示する
     groupid = request.GET['groupid']
-    data = list(GroupSchedule.filter(groupid=groupid).values())
+    data = list(GroupSchedule.objects.filter(groupid=groupid).values())
     json_str = json.dumps(data, ensure_ascii=False, indent=2) 
     return HttpResponse(json_str)
 
@@ -22,7 +22,7 @@ def create(request):
     groupschedules = GroupSchedule(groupid=groupidtemp,title=title,start=start,end=end,color=color,details=details)
     groupschedules.save()
 
-    data = list(GroupSchedule.filter(groupid=groupid).values())
+    data = list(GroupSchedule.objects.filter(groupid=groupid).values())
     json_str = json.dumps(data, ensure_ascii=False, indent=2) 
     return HttpResponse(json_str)
 
@@ -32,6 +32,6 @@ def delete(request):
     groupschedule = GroupSchedule.objects.get(id=groupscheduleid)
     groupschedule.delete()
 
-    data = list(GroupSchedule.filter(groupid=groupid).values())
+    data = list(GroupSchedule.objects.filter(groupid=groupid).values())
     json_str = json.dumps(data, ensure_ascii=False, indent=2) 
     return HttpResponse(json_str)
