@@ -1,7 +1,8 @@
 from django.contrib import admin
 from django.urls import path
-from .views import login,student,group
+from .views import login,student,teacher,group
 from .views import subject
+from .views import privateschedule,groupschedule,todo
 
 urlpatterns = [
     #学生
@@ -9,6 +10,11 @@ urlpatterns = [
     path('stsel/', student.find , name='find'), 
     path('stadd/',student.create,name='stadd'),
     path('stdel/',student.delete,name='stdel'),
+    #管理者
+    path('', login.index , name='index'), #mailで検索
+    path('trsel/',teacher.find , name='find'), 
+    path('tradd/',teacher.create,name='tradd'),
+    path('rtdel/',teacher.delete,name='trdel'),
     #科目
     #path('sball/',subject.find,name='sball'),
     path('ttadd/',subject.ttadd,name='ttadd'),
@@ -17,5 +23,15 @@ urlpatterns = [
     path('glall/',group.find,name='glall'),
     path('gladd/',group.create,name='gladd'),
     path('gldel/',group.delete,name='gldel'),
-
+    #プライベートスケジュール
+    path('pssel/',privateschedule.create,name='pssel'),
+    path('psadd/',privateschedule.create,name='psadd'),
+    path('psdel/',privateschedule.delete,name='psdel'),
+    #グループスケジュール
+    path('gssel/',groupschedule.create,name='gssel'),
+    path('gsadd/',groupschedule.create,name='gsadd'),
+    path('gsdel/',groupschedule.delete,name='gsdel'),
+    #Todo
+    path('tdsel/',todo.create,name='tdsel'),
+    path('tddel/',todo.delete,name='tddel'),
 ]   
