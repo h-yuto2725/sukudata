@@ -11,7 +11,7 @@ urlpatterns = [
     path('stdel/',student.delete,name='stdel'),
     #科目
     #path('sball/',subject.find,name='sball'),
-    path('sbadd/',subject.create,name='sbadd'),
+    path('ttadd/',subject.ttadd,name='ttadd'),
     #path('sbdel/',subject.delete,name='sbdel'),
     #グループ
     path('glall/',group.find,name='glall'),
