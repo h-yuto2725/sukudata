@@ -45,7 +45,7 @@ class ClassDetails(models.Model):
         return '<ClassDetails:id=' + str(self.id) + ', ' + str(self.userid) + ':' + str(self.classid) + '>'
 
 class Timetable(models.Model):
-    title = models.CharField(max_length=10)
+    title = models.CharField(max_length=100)
     start = models.CharField(max_length=100)
     end = models.CharField(max_length=100)
     color = models.CharField(max_length=10)
@@ -60,7 +60,7 @@ class Timetable(models.Model):
 
 class Schedule(models.Model):
     userid = models.ForeignKey(User, on_delete=models.CASCADE)
-    title = models.CharField(max_length=10)
+    title = models.CharField(max_length=100)
     start = models.CharField(max_length=100)
     end = models.CharField(max_length=100)
     color = models.CharField(max_length=10)
@@ -71,7 +71,7 @@ class Schedule(models.Model):
 
 class GroupSchedule(models.Model):
     groupid = models.ForeignKey(Group, on_delete=models.CASCADE)
-    title = models.CharField(max_length=10)
+    title = models.CharField(max_length=100)
     start = models.CharField(max_length=100)
     end = models.CharField(max_length=100)
     color = models.CharField(max_length=10)
@@ -82,17 +82,17 @@ class GroupSchedule(models.Model):
 
 class Event(models.Model):
     classid = models.ForeignKey(Class, on_delete=models.CASCADE)
-    title = models.CharField(max_length=10)
+    title = models.CharField(max_length=100)
     end = models.CharField(max_length=100)
-    details = models.CharField(max_length=100)
+    details = models.CharField(max_length=100)#なくなる予定
     
     def __str__(self):
-        return '<Event:title=' + str(self.title) + ', ' + self.classid + '>'
+        return '<Event:title=' + str(self.title) + ', ' + str(self.classid) + '>'
 
 class Todo(models.Model):
     userid = models.ForeignKey(User, on_delete=models.CASCADE)
-    title = models.CharField(max_length=10)
+    title = models.CharField(max_length=100)
     done = models.BooleanField(default=False)
 
     def __str__(self):
-        return '<Todo:title=' + str(self.title) + ', ' + self.userid + '>'
+        return '<Todo:title=' + str(self.title) + ', ' + str(self.userid) + '>'
