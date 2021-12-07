@@ -1,19 +1,28 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.http import JsonResponse
-from ..models import Todo
+from ..models import Todo,User
 import json
 
 # Create your views here.
+def find(request): #学籍番号で検索を行いJsonファイルでschedule情報を表示する
+    userid = request.GET['userid']
+    useridtemp = User.objects.get(userid=userid)
+    data = list(Todo.objects.filter(userid=userid).values())
+    json_str = json.dumps(data, ensure_ascii=False, indent=2) 
+    print(json_str)
+    return HttpResponse(json_str)
+
 def create(request):
     userid = request.GET['userid']
     title = request.GET['title']
     done = request.GET['done']
     todotemp = Todo.objects.get(id=id)
-    todo = Todo(userid=userid,title=title,done=done)
+    useridtemp = User.objects.get(userid=userid)
+    todo = Todo(userid=useridtemp,title=title,done=done)
     todo.save()
 
-    data = list(Todo.filter(userid=userid).values())
+    data = list(Todo.objects.filter(userid=userid).values())
     json_str = json.dumps(data, ensure_ascii=False, indent=2) 
     return HttpResponse(json_str)
 
@@ -22,6 +31,6 @@ def delete(request):
     todo = Todo.objects.get(id=id)
     todo.delete()
 
-    data = list(Todo.filter(id=id).values())
+    data = list(Todo.objects.filter(id=id).values())
     json_str = json.dumps(data, ensure_ascii=False, indent=2) 
     return HttpResponse(json_str)

@@ -32,6 +32,7 @@ urlpatterns = [
     path('gsadd/',groupschedule.create,name='gsadd'),
     path('gsdel/',groupschedule.delete,name='gsdel'),
     #Todo
-    path('tdsel/',todo.create,name='tdsel'),
+    path('tdsel/',todo.find,name='tdsel'),
+    path('tdadd/',todo.create,name='tdadd'),
     path('tddel/',todo.delete,name='tddel'),
 ]   
