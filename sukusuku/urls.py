@@ -11,14 +11,11 @@ urlpatterns = [
     path('stadd/',student.create,name='stadd'),
     path('stdel/',student.delete,name='stdel'),
     #管理者
-    path('', login.index , name='index'), #mailで検索
     path('trsel/',teacher.find , name='find'), 
     path('tradd/',teacher.create,name='tradd'),
     path('rtdel/',teacher.delete,name='trdel'),
-    #科目
-    #path('sball/',subject.find,name='sball'),
+    #時間割登録
     path('ttadd/',subject.ttadd,name='ttadd'),
-    #path('sbdel/',subject.delete,name='sbdel'),
     #グループ
     path('glall/',group.find,name='glall'),
     path('gladd/',group.create,name='gladd'),
