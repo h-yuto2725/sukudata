@@ -4,6 +4,7 @@ from .views import login,student,teacher,group
 from .views import timetable
 from .views import privateschedule,groupschedule,todo
 from .views import clas,classdetails,event
+from .views import privateschedule,groupschedule,todo,groupdetails
 
 urlpatterns = [
     #学生
@@ -32,10 +33,12 @@ urlpatterns = [
     #プライベートスケジュール
     path('pssel/',privateschedule.find,name='pssel'),
     path('psadd/',privateschedule.create,name='psadd'),
+    path('psupd/',privateschedule.update,name='psupd'),
     path('psdel/',privateschedule.delete,name='psdel'),
     #グループスケジュール
     path('gssel/',groupschedule.find,name='gssel'),
     path('gsadd/',groupschedule.create,name='gsadd'),
+    path('gsupd/',groupschedule.update,name='gsupd'),
     path('gsdel/',groupschedule.delete,name='gsdel'),
     #Todo
     path('tdsel/',todo.find,name='tdsel'),
@@ -45,4 +48,8 @@ urlpatterns = [
     path('evsel/',event.find,name='evsel'),
     path('evadd/',event.create,name='evadd'),
     path('evdel/',event.delete,name='evdel'),
+    #グループ詳細
+    path('gdsel/',groupdetails.find,name='gdsel'),
+    path('gdadd/',groupdetails.create,name='gdadd'),
+    path('gddel/',groupdetails.delete,name='gddel'),
 ]   
