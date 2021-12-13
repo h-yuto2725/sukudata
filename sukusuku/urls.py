@@ -27,7 +27,8 @@ urlpatterns = [
     path('cladd/',clas.create,name='cladd'),
     path('cldel/',clas.delete,name='cldel'),
     #クラス詳細
-    path('cdsel/',classdetails.find,name='cdsel'),
+    path('cdselu/',classdetails.find1,name='cdselu'),
+    path('cdselc/',classdetails.find2,name='cdselc'),
     path('cdadd/',classdetails.create,name='cdadd'),
     path('cddel/',classdetails.delete,name='cddel'),
     #プライベートスケジュール
