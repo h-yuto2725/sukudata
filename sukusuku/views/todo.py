@@ -27,8 +27,8 @@ def create(request):
     return HttpResponse(json_str)
 
 def delete(request):
-    id = request.GET['id']
-    todo = Todo.objects.get(id=id)
+    tdid = request.GET['id']
+    todo = Todo.objects.get(id=tdid)
     todo.delete()
 
     data = list(Todo.objects.filter(id=id).values())

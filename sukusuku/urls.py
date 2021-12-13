@@ -17,9 +17,12 @@ urlpatterns = [
     path('tradd/',teacher.create,name='tradd'),
     path('rtdel/',teacher.delete,name='trdel'),
     #時間割登録
+    path('ttsel/',timetable.ttsel,name='ttsel'),
     path('ttadd/',timetable.ttadd,name='ttadd'),
+    path('ttdel/',timetable.ttdel,name='ttdel'),
     #グループ
     path('glall/',group.find,name='glall'),
+    path('glsel/',group.gsel,name='glsel'),
     path('gladd/',group.create,name='gladd'),
     path('gldel/',group.delete,name='gldel'),
     #クラス
