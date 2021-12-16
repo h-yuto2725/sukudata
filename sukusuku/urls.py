@@ -9,7 +9,7 @@ from .views import privateschedule,groupschedule,todo,groupdetails
 urlpatterns = [
     #学生
     path('', login.index , name='index'), #mailで検索
-    path('stsel/', student.find , name='find'), 
+    path('stsel/',student.find , name='find'), 
     path('stadd/',student.create,name='stadd'),
     path('stdel/',student.delete,name='stdel'),
     #管理者

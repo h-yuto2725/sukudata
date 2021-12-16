@@ -1,7 +1,6 @@
 from django.shortcuts import render
 from django.conf import settings
 from django.http import HttpResponse
-from django.http import JsonResponse
 from ..models import Timetable,Class
 from import_export import resources
 import json
@@ -35,9 +34,12 @@ def ttsel(request):
 
 def ttdel(request):
     ttid = request.GET['id']
+    classid = request.GET['classid']
+    classtemp = Class.objects.get(classid=classid)
+
     timetable = Timetable.objects.get(id=ttid)
     timetable.delete()
-
-    data = list(Subject.objects.all().values())
+    
+    data = list(Timetable.objects.filter(classid = classtemp).values())
     json_str = json.dumps(data, ensure_ascii=False, indent=2) 
     return HttpResponse(json_str)
