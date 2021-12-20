@@ -10,6 +10,7 @@ urlpatterns = [
     #学生
     path('', login.index , name='index'), #mailで検索
     path('stsel/', student.find , name='find'), 
+    path('stsel2/', student.find2 , name='find2'), 
     path('stadd/',student.create,name='stadd'),
     path('stdel/',student.delete,name='stdel'),
     #管理者
@@ -19,6 +20,8 @@ urlpatterns = [
     #時間割登録
     path('ttsel/',timetable.ttsel,name='ttsel'),
     path('ttadd/',timetable.ttadd,name='ttadd'),
+    path('ttcreate/',timetable.ttcreate,name='ttcreate'),
+    path('ttupd/',timetable.ttupd,name='ttupd'),
     path('ttdel/',timetable.ttdel,name='ttdel'),
     #グループ
     path('glall/',group.find,name='glall'),
@@ -54,6 +57,7 @@ urlpatterns = [
     path('evdel/',event.delete,name='evdel'),
     #グループ詳細
     path('gdsel/',groupdetails.find,name='gdsel'),
+    path('gdall/',groupdetails.allfind,name='gdall'),
     path('gdadd/',groupdetails.create,name='gdadd'),
     path('gddel/',groupdetails.delete,name='gddel'),
 ]   

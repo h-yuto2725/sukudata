@@ -17,7 +17,7 @@ class User(models.Model):
         return '<User:userid=' + str(self.userid) + ', ' + self.username + '>'
 
 class Group(models.Model):
-    groupid = models.CharField(max_length=10,primary_key=True)
+    groupid = models.CharField(max_length=36,primary_key=True)
     groupname = models.CharField(max_length=100)
 
     def __str__(self):
