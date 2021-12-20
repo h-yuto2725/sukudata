@@ -5,6 +5,7 @@ from .views import timetable
 from .views import privateschedule,groupschedule,todo
 from .views import clas,classdetails,event
 from .views import privateschedule,groupschedule,todo,groupdetails
+from .views import thread,comment
 
 urlpatterns = [
     #学生
@@ -56,4 +57,15 @@ urlpatterns = [
     path('gdsel/',groupdetails.find,name='gdsel'),
     path('gdadd/',groupdetails.create,name='gdadd'),
     path('gddel/',groupdetails.delete,name='gddel'),
+    #掲示板
+    path('thsel/',thread.select,name='thsel'),
+    path('thsrc/',thread.search,name='thsrc'),
+    path('thadd/',thread.create,name='thadd'),
+    path('thapp/',thread.approve,name='thapp'),
+    path('threj/',thread.reject,name='threj'),
+    path('thdel/',thread.delete,name='thdel'),
+    #コメント
+    path('cmsel/',comment.select,name='cmsel'),
+    path('cmadd/',comment.create,name='cmadd'),
+    path('cmdel/',comment.delete,name='cmdel'),
 ]   

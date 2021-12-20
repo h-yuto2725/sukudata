@@ -8,6 +8,7 @@ from .models import Group,GroupDetails
 from .models import Class,ClassDetails
 from .models import Timetable,Schedule,GroupSchedule
 from .models import Event,Todo
+from .models import Thread,Comment
 
 class    RoleResource(resources.ModelResource):
     class Meta:
@@ -57,6 +58,15 @@ class    TodoResource(resources.ModelResource):
     class Meta:
         model = Todo
 
+class    ThreadResource(resources.ModelResource):
+    class Meta:
+        model = Class
+        import_id_fields = ["threadid"]
+
+class    CommentResource(resources.ModelResource):
+    class Meta:
+        model = Comment
+
 
 class RoleAdmin(ImportExportModelAdmin):
     resource_class = RoleResource
@@ -91,6 +101,12 @@ class EventAdmin(ImportExportModelAdmin):
 class TodoAdmin(ImportExportModelAdmin):
     resource_class = TodoResource
 
+class ThreadAdmin(ImportExportModelAdmin):
+    resource_class = ThreadResource
+
+class CommentAdmin(ImportExportModelAdmin):
+    resource_class = CommentResource
+
 # Register your models here.
 admin.site.register(Role,RoleAdmin)
 admin.site.register(User,UserAdmin)
@@ -103,3 +119,5 @@ admin.site.register(Schedule,ScheduleAdmin)
 admin.site.register(GroupSchedule,GroupScheduleAdmin)
 admin.site.register(Event,EventAdmin)
 admin.site.register(Todo,TodoAdmin)
+admin.site.register(Thread,ThreadAdmin)
+admin.site.register(Comment,CommentAdmin)
