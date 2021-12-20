@@ -1,8 +1,11 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from django.http import JsonResponse
 from ..models import ClassDetails,User,Class
 import json
+from import_export import resources
+import tablib
+import pandas as pd
+import uuid
 
 
 def find1(request): 
@@ -23,16 +26,16 @@ def find2(request):
 
 def create(request): 
     if request.method == 'POST':
-        headers = ('title','start','end','color','classid','details')
+        headers = ('classid','userid')
         data = []
         df = pd.read_excel (request.body,sheet_name='Tablib Dataset',)
-        for i in range(20):
-            data.append([df.iat[i,0],df.iat[i,1],df.iat[i,2],df.iat[i,3],df.iat[i,4],df.iat[i,5]])
+        for i in range(len(df)):
+            data.append([df.iat[i,0],df.iat[i,1]])
         classdetails_resource = resources.modelresource_factory(model=ClassDetails)()
         dataset = tablib.Dataset(*data, headers=headers)
         classdetails_resource.import_data(dataset)
 
-        data = list(Timetable.objects.all().values())
+        data = list(ClassDetails.objects.all().values())
         json_str = json.dumps(data, ensure_ascii=False, indent=2)
         return HttpResponse(json_str)
 
