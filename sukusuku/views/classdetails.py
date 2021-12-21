@@ -5,7 +5,6 @@ import json
 from import_export import resources
 import tablib
 import pandas as pd
-import uuid
 
 
 def find1(request): 
@@ -34,19 +33,31 @@ def create(request):
         classdetails_resource = resources.modelresource_factory(model=ClassDetails)()
         dataset = tablib.Dataset(*data, headers=headers)
         classdetails_resource.import_data(dataset)
-
+        
         data = list(ClassDetails.objects.all().values())
         json_str = json.dumps(data, ensure_ascii=False, indent=2)
         return HttpResponse(json_str)
 
+def create1(request): #1は一人追加するの1
+    classid = request.GET['classid']
+    userid = request.GET['userid'] 
+    classtemp =  Class.objects.get(classid=classid)
+    usertemp =  User.objects.get(userid=userid)
+    cd = ClassDetails(classid=classtemp,userid=usertemp)
+    cd.save()
+
+    data = list(ClassDetails.objects.filter(classid=classtemp).values('id','userid','classid','userid__username'))
+    json_str = json.dumps(data, ensure_ascii=False, indent=2)
+    return HttpResponse(json_str)
+
 def delete(request):
     cdid = request.GET['id']
-    userid = request.GET['userid']
-    usertemp =  User.objects.get(userid=userid)
+    classid = request.GET['classid']
+    classtemp =  Class.objects.get(classid=classid)
 
     classdetails = ClassDetails.objects.get(id=cdid)
     classdetails.delete()
     
-    data = list(ClassDetails.objects.filter(userid=usertemp).values())
+    data = list(ClassDetails.objects.filter(classid=classtemp).values('id','userid','classid','userid__username'))
     json_str = json.dumps(data, ensure_ascii=False, indent=2)
     return HttpResponse(json_str)

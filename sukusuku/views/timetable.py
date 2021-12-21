@@ -17,6 +17,7 @@ def ttadd(request):
             data.append([df.iat[i,0],df.iat[i,1],df.iat[i,2],df.iat[i,3],df.iat[i,4],df.iat[i,5]])
         timetable_resource = resources.modelresource_factory(model=Timetable)()
         dataset = tablib.Dataset(*data, headers=headers)
+        print(dataset)
         timetable_resource.import_data(dataset)
 
         data = list(Timetable.objects.all().values())

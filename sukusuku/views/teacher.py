@@ -20,8 +20,8 @@ def create(request): #メールアドレスで検索を行いJsonファイルで
     users = User(userid=userid,mail=mail,roleid=roletemp,username=username)
     users.save()
 
-    data = list(User.objects.all().values())
-    json_str = json.dumps(data, ensure_ascii=False, indent=2) 
+    data = list(User.objects.filter(userid__contains='tr').values())
+    json_str = json.dumps(data, ensure_ascii=False, indent=2)
     return HttpResponse(json_str)
 
 def delete(request):
@@ -29,6 +29,6 @@ def delete(request):
     user = User.objects.get(userid=userid)
     user.delete()
 
-    data = list(User.objects.all().values())
-    json_str = json.dumps(data, ensure_ascii=False, indent=2) 
+    data = list(User.objects.filter(userid__contains='tr').values())
+    json_str = json.dumps(data, ensure_ascii=False, indent=2)
     return HttpResponse(json_str)
