@@ -18,7 +18,7 @@ class User(models.Model):
         return '<User:userid=' + str(self.userid) + ', ' + self.username + '>'
 
 class Group(models.Model):
-    groupid = models.CharField(max_length=10,primary_key=True)
+    groupid = models.CharField(max_length=36,primary_key=True)
     groupname = models.CharField(max_length=100)
 
     def __str__(self):
@@ -97,3 +97,24 @@ class Todo(models.Model):
 
     def __str__(self):
         return '<Todo:title=' + str(self.title) + ', ' + str(self.userid) + '>'
+
+class Thread(models.Model):
+    threadid = models.AutoField(primary_key=True)
+    master = models.ForeignKey(User, on_delete=models.CASCADE)
+    title = models.CharField(max_length=100)
+    note = models.CharField(max_length=100)
+    flag = models.CharField(max_length=1)
+
+    def __str__(self):
+        return '<Thread:id=' + str(self.threadid) + ', ' + str(self.title) + '>'
+
+class Comment(models.Model):
+    thread = models.ForeignKey(Thread, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    name = models.CharField(max_length=100,default='user')
+
+    comment = models.CharField(max_length=100)
+    flag = models.BooleanField(default=True)
+
+    def __str__(self):
+        return '<Comment:comment=' + str(self.comment) + ', ' + str(self.thread) + '>'

@@ -5,10 +5,13 @@ from .views import timetable
 from .views import privateschedule,groupschedule,todo
 from .views import clas,classdetails,event
 from .views import privateschedule,groupschedule,todo,groupdetails
+from .views import thread,comment
 
 urlpatterns = [
     #学生
     path('', login.index , name='index'), #mailで検索
+    path('stsel/', student.find , name='find'), 
+    path('stsel2/', student.find2 , name='find2'), 
     path('stsel/',student.find , name='find'), 
     path('stadd/',student.create,name='stadd'),
     path('stdel/',student.delete,name='stdel'),
@@ -20,6 +23,8 @@ urlpatterns = [
     #時間割登録
     path('ttsel/',timetable.ttsel,name='ttsel'),
     path('ttadd/',timetable.ttadd,name='ttadd'),
+    path('ttcreate/',timetable.ttcreate,name='ttcreate'),
+    path('ttupd/',timetable.ttupd,name='ttupd'),
     path('ttdel/',timetable.ttdel,name='ttdel'),
     #グループ
     path('glall/',group.find,name='glall'),
@@ -57,6 +62,18 @@ urlpatterns = [
     path('evdel/',event.delete,name='evdel'),
     #グループ詳細
     path('gdsel/',groupdetails.find,name='gdsel'),
+    path('gdall/',groupdetails.allfind,name='gdall'),
     path('gdadd/',groupdetails.create,name='gdadd'),
     path('gddel/',groupdetails.delete,name='gddel'),
+    #掲示板
+    path('thsel/',thread.select,name='thsel'),
+    path('thsrc/',thread.search,name='thsrc'),
+    path('thadd/',thread.create,name='thadd'),
+    path('thapp/',thread.approve,name='thapp'),
+    path('threj/',thread.reject,name='threj'),
+    path('thdel/',thread.delete,name='thdel'),
+    #コメント
+    path('cmsel/',comment.select,name='cmsel'),
+    path('cmadd/',comment.create,name='cmadd'),
+    path('cmdel/',comment.delete,name='cmdel'),
 ]   

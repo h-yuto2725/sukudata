@@ -12,6 +12,11 @@ def find(request): #メールアドレスで検索を行いJsonファイルでus
     json_str = json.dumps(data, ensure_ascii=False, indent=2)
     return HttpResponse(json_str)
 
+def find2(request): #学籍番号で検索を行いJsonファイルでuser情報を表示する。
+    userid = request.GET['userid']
+    data = list(User.objects.filter(userid = userid).values())
+    json_str = json.dumps(data, ensure_ascii=False, indent=2) 
+    return HttpResponse(json_str)
 
 def create(request): #メールアドレスで検索を行いJsonファイルでuser情報を表示する。
     mail = request.GET['mail']

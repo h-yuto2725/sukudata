@@ -1,3 +1,4 @@
+from datetime import time
 from django.shortcuts import render
 from django.conf import settings
 from django.http import HttpResponse
@@ -23,6 +24,37 @@ def ttadd(request):
         data = list(Timetable.objects.all().values())
         json_str = json.dumps(data, ensure_ascii=False, indent=2)
         return HttpResponse(json_str)
+
+def ttcreate(request):
+    title = request.GET['title']
+    start = request.GET['start']
+    end = request.GET['end']
+    color = request.GET['color']
+    classid = request.GET['classid']
+    details = request.GET['details']
+    classidtemp = Class.objects.get(classid=classid)
+    timetable = Timetable(title=title,start=start,end=end,color=color,details=details,classid=classidtemp)
+    timetable.save()
+
+    data = list(Timetable.objects.filter(classid = classidtemp).values())
+    json_str = json.dumps(data, ensure_ascii=False, indent=2) 
+    return HttpResponse(json_str)
+
+def ttupd(request):
+    ttid = request.GET['id']
+    title = request.GET['title']
+    start = request.GET['start']
+    end = request.GET['end']
+    color = request.GET['color']
+    classid = request.GET['classid']
+    details = request.GET['details']
+    classidtemp = Class.objects.get(classid=classid)
+    timetable = Timetable(id=ttid,title=title,start=start,end=end,color=color,details=details,classid=classidtemp)
+    timetable.save()
+
+    data = list(Timetable.objects.filter(classid = classidtemp).values())
+    json_str = json.dumps(data, ensure_ascii=False, indent=2) 
+    return HttpResponse(json_str)
 
 def ttsel(request): 
     classid = request.GET['classid']

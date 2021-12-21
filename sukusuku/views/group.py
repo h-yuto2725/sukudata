@@ -3,6 +3,7 @@ from django.http import HttpResponse
 from django.http import JsonResponse
 from ..models import Group
 import json
+import uuid
 
 # Create your views here.
 
@@ -18,12 +19,12 @@ def gsel(request):
     return HttpResponse(json_str)
 
 def create(request): 
-    groupid = request.GET['groupid']
+    groupid = str(uuid.uuid4())
     groupname = request.GET['groupname']
     group = Group(groupid=groupid,groupname=groupname)
     group.save()
 
-    data = list(Group.objects.all().values())
+    data = list(Group.objects.filter(groupid=groupid).values())
     json_str = json.dumps(data, ensure_ascii=False, indent=2) 
     return HttpResponse(json_str)
 
