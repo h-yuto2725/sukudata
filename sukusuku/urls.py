@@ -54,6 +54,7 @@ urlpatterns = [
     #Todo
     path('tdsel/',todo.find,name='tdsel'),
     path('tdadd/',todo.create,name='tdadd'),
+    path('tddone/',todo.done,name='tddone'),
     path('tddel/',todo.delete,name='tddel'),
     #イベント
     path('evall/',event.findall,name='evall'),
