@@ -10,7 +10,6 @@ def find(request): #学籍番号で検索を行いJsonファイルでschedule情
     useridtemp = User.objects.get(userid=userid)
     data = list(Todo.objects.filter(userid=useridtemp).values())
     json_str = json.dumps(data, ensure_ascii=False, indent=2) 
-    print(json_str)
     return HttpResponse(json_str)
 
 def create(request):
