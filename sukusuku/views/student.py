@@ -1,8 +1,10 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from django.http import JsonResponse
 from ..models import User,Role
+from import_export import resources
 import json
+import tablib
+import pandas as pd
 
 # Create your views here.
 def find(request): #メールアドレスで検索を行いJsonファイルでuser情報を表示する。
@@ -37,3 +39,23 @@ def delete(request):
     data = list(User.objects.all().values())
     json_str = json.dumps(data, ensure_ascii=False, indent=2) 
     return HttpResponse(json_str)
+
+def useradd(request):
+    if request.method == 'POST':
+        headers = ('userid', 'mail', 'roleid', 'username')
+        data = []
+        df = pd.read_excel (request.body,sheet_name='Tablib Dataset',)
+        for i in range(len(df)):
+            data.append([df.iat[i,0],df.iat[i,1],df.iat[i,2],df.iat[i,3]])
+        user_resource = resources.modelresource_factory(model=User,resource_class=UserResource)()
+        dataset = tablib.Dataset(*data, headers=headers)
+        user_resource.import_data(dataset)
+
+        data = list(User.objects.all().values())
+        json_str = json.dumps(data, ensure_ascii=False, indent=2)
+        return HttpResponse(json_str)
+
+class    UserResource(resources.ModelResource):
+    class Meta:
+        model = User
+        import_id_fields = ["userid"]

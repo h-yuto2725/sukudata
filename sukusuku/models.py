@@ -1,4 +1,5 @@
 from django.db import models
+from import_export import resources
 
 class Role(models.Model):
     roleid = models.CharField(max_length=10,primary_key=True)

@@ -15,10 +15,11 @@ urlpatterns = [
     path('stsel/',student.find , name='find'), 
     path('stadd/',student.create,name='stadd'),
     path('stdel/',student.delete,name='stdel'),
+    path('usadd/',student.useradd,name='usadd'),
     #管理者
     path('trsel/',teacher.find , name='find'), 
     path('tradd/',teacher.create,name='tradd'),
-    path('rtdel/',teacher.delete,name='trdel'),
+    path('trdel/',teacher.delete,name='trdel'),
     #時間割登録
     path('ttsel/',timetable.ttsel,name='ttsel'),
     path('ttadd/',timetable.ttadd,name='ttadd'),
@@ -38,6 +39,7 @@ urlpatterns = [
     path('cdselu/',classdetails.find1,name='cdselu'),
     path('cdselc/',classdetails.find2,name='cdselc'),
     path('cdadd/',classdetails.create,name='cdadd'),
+    path('cdadd1/',classdetails.create1,name='cdadd1'),
     path('cddel/',classdetails.delete,name='cddel'),
     #プライベートスケジュール
     path('pssel/',privateschedule.find,name='pssel'),
@@ -55,6 +57,7 @@ urlpatterns = [
     path('tddone/',todo.done,name='tddone'),
     path('tddel/',todo.delete,name='tddel'),
     #イベント
+    path('evall/',event.findall,name='evall'),
     path('evsel/',event.find,name='evsel'),
     path('evadd/',event.create,name='evadd'),
     path('evdel/',event.delete,name='evdel'),
