@@ -111,7 +111,6 @@ class Thread(models.Model):
 class Comment(models.Model):
     thread = models.ForeignKey(Thread, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    name = models.CharField(max_length=100,default='user')
 
     comment = models.CharField(max_length=100)
     flag = models.BooleanField(default=True)
