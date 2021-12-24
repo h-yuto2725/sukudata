@@ -31,14 +31,9 @@ def create(request): #メールアドレスで検索を行いJsonファイルで
     return HttpResponse(json_str)
 
 def delete(request):
-    thread = request.GET['thread']
-    user = request.GET['user']
-    name = request.GET['name']
-    comment = request.GET['comment']
-    flag = request.GET['flag']
-    threadtemp = Thread.objects.get(threadid=thread)
-    usertemp = User.objects.get(userid=user)
-    comment = Comment(thread=threadtemp,user=usertemp,name=name,comment=comment,flag=flag)
+    commentid = request.GET['id']
+    ctemp = Comment.objects.get(id=commentid)
+    comment = Comment(id=commentid,thread=ctemp.thread,user=ctemp.user,name=ctemp.name,comment=ctemp.comment,flag=False)
     comment.save()
 
     data = list(Comment.objects.all().values())
