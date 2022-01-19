@@ -25,16 +25,17 @@ def create(request): #メールアドレスで検索を行いJsonファイルで
     comment = Comment(thread=threadtemp,user=usertemp,comment=comment,flag=flag)
     comment.save()
 
-    data = list(Comment.objects.all().values())
+    data = list(Comment.objects.filter(thread_id=threadtemp).values('id','thread_id','user','user__username','comment','flag'))
     json_str = json.dumps(data, ensure_ascii=False, indent=2) 
     return HttpResponse(json_str)
 
 def delete(request):
     commentid = request.GET['id']
+    threadtemp = request.GET['thread']
     ctemp = Comment.objects.get(id=commentid)
     comment = Comment(id=commentid,thread=ctemp.thread,user=ctemp.user,comment=ctemp.comment,flag=False)
     comment.save()
 
-    data = list(Comment.objects.all().values())
+    data = list(Comment.objects.filter(thread_id=threadtemp).values('id','thread_id','user','user__username','comment','flag'))
     json_str = json.dumps(data, ensure_ascii=False, indent=2) 
     return HttpResponse(json_str)
