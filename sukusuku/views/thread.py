@@ -13,9 +13,9 @@ import json
 
 def select(request):
     try:
-        threadid = request.GET['threadid']
-        threadtemp = Thread.objects.get(threadid=threadid)
-        data = list(Thread.objects.filter(thread_id=threadtemp).values())
+        thid = request.GET['threadid']
+        threadtemp = Thread.objects.get(threadid=thid)
+        data = list(Thread.objects.filter(threadid=threadtemp.threadid).values())
     except Exception:
         data = list(Thread.objects.all().values())
     json_str = json.dumps(data, ensure_ascii=False, indent=2)
