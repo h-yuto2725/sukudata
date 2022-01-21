@@ -46,10 +46,13 @@ INSTALLED_APPS = [
 
 CORS_ORIGIN_WHITELIST = [
     'http://localhost:3000',
+    'https://7colordays.net',
+
 ]
 
 CSRF_TRUSTED_ORIGINS =[
     'http://localhost:3000',
+    'https://7colordays.net',
 ]
 
 CORS_ALLOW_CREDENTIALS = True
