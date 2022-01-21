@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-)k8)*v3cc8g+a@c=d6r(xh5ld)k7yikq$6@@^jtal^0e-xeujq
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['.7colordays.net','114.160.83.214']
+ALLOWED_HOSTS = ['.7colordays.net','114.160.83.214','34.85.0.236']
 
 
 
@@ -46,10 +46,13 @@ INSTALLED_APPS = [
 
 CORS_ORIGIN_WHITELIST = [
     'http://localhost:3000',
+    'https://7colordays.net',
+
 ]
 
 CSRF_TRUSTED_ORIGINS =[
     'http://localhost:3000',
+    'https://7colordays.net',
 ]
 
 CORS_ALLOW_CREDENTIALS = True
