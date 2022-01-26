@@ -49,7 +49,6 @@ INSTALLED_APPS = [
     'import_export',
 ]
 
-
 CORS_ORIGIN_WHITELIST = [
     'http://localhost:3000',
     'https://7colordays.net',
@@ -58,7 +57,7 @@ CORS_ORIGIN_WHITELIST = [
 
 CSRF_TRUSTED_ORIGINS =[
     'http://localhost:3000',
-    '7colordays.net',
+    'https://7colordays.net',
 ]
 
 CORS_ALLOW_CREDENTIALS = True
