@@ -8,7 +8,7 @@ import pandas as pd
 
 # Create your views here.
 def find(request): #メールアドレスで検索を行いJsonファイルでuser情報を表示する。
-    data = list(User.objects.filter(userid__contains='st').values())
+    data = list(User.objects.filter(roleid_id='student').values())
     json_str = json.dumps(data, ensure_ascii=False, indent=2)
     return HttpResponse(json_str)
 
