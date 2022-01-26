@@ -50,8 +50,7 @@ INSTALLED_APPS = [
 ]
 
 CSRF_FAILURE_VIEW=[
-    'http://localhost:3000',
-    'https://7colordays.net',
+    '7colordays.net',
 ]
 
 CORS_ORIGIN_WHITELIST = [
