@@ -4,11 +4,13 @@ from django.conf import settings
 from django.http import HttpResponse
 from ..models import Timetable,Class
 from import_export import resources
+from django.views.decorators.csrf import csrf_exempt
 import json
 import tablib
 import pandas as pd
 
 # Create your views here.
+@csrf_exempt
 def ttadd(request):
     if request.method == 'POST':
         headers = ('title','start','end','color','classid','details')

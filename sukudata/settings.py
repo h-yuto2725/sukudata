@@ -49,9 +49,6 @@ INSTALLED_APPS = [
     'import_export',
 ]
 
-CSRF_FAILURE_VIEW=[
-    '7colordays.net',
-]
 
 CORS_ORIGIN_WHITELIST = [
     'http://localhost:3000',
