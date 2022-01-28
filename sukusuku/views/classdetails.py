@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from ..models import ClassDetails,User,Class
+from django.views.decorators.csrf import csrf_exempt
 import json
 from import_export import resources
 import tablib
@@ -23,6 +24,7 @@ def find2(request):
     json_str = json.dumps(data, ensure_ascii=False, indent=2)
     return HttpResponse(json_str)
 
+@csrf_exempt
 def create(request): 
     if request.method == 'POST':
         headers = ('classid','userid')

@@ -44,6 +44,9 @@ class ClassDetails(models.Model):
 
     def __str__(self):
         return '<ClassDetails:id=' + str(self.id) + ', ' + str(self.userid) + ':' + str(self.classid) + '>'
+    
+    class Meta:
+        unique_together = ('classid','userid')
 
 class Timetable(models.Model):
     title = models.CharField(max_length=100)

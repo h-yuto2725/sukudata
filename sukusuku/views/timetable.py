@@ -4,17 +4,19 @@ from django.conf import settings
 from django.http import HttpResponse
 from ..models import Timetable,Class
 from import_export import resources
+from django.views.decorators.csrf import csrf_exempt
 import json
 import tablib
 import pandas as pd
 
 # Create your views here.
+@csrf_exempt
 def ttadd(request):
     if request.method == 'POST':
         headers = ('title','start','end','color','classid','details')
         data = []
         df = pd.read_excel (request.body,sheet_name='Tablib Dataset',)
-        for i in range(20):
+        for i in range(len(df)):
             data.append([df.iat[i,0],df.iat[i,1],df.iat[i,2],df.iat[i,3],df.iat[i,4],df.iat[i,5]])
         timetable_resource = resources.modelresource_factory(model=Timetable)()
         dataset = tablib.Dataset(*data, headers=headers)

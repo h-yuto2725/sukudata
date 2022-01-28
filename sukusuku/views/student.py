@@ -2,13 +2,14 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from ..models import User,Role
 from import_export import resources
+from django.views.decorators.csrf import csrf_exempt
 import json
 import tablib
 import pandas as pd
 
 # Create your views here.
 def find(request): #メールアドレスで検索を行いJsonファイルでuser情報を表示する。
-    data = list(User.objects.filter(userid__contains='st').values())
+    data = list(User.objects.filter(roleid_id='student').values())
     json_str = json.dumps(data, ensure_ascii=False, indent=2)
     return HttpResponse(json_str)
 
@@ -40,6 +41,7 @@ def delete(request):
     json_str = json.dumps(data, ensure_ascii=False, indent=2) 
     return HttpResponse(json_str)
 
+@csrf_exempt
 def useradd(request):
     if request.method == 'POST':
         headers = ('userid', 'mail', 'roleid', 'username')

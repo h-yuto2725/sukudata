@@ -6,7 +6,7 @@ import json
 
 # Create your views here.
 def find(request): #メールアドレスで検索を行いJsonファイルでuser情報を表示する。
-    data = list(User.objects.filter(userid__contains='tr').values())
+    data = list(User.objects.filter(roleid_id='teacher').values())
     json_str = json.dumps(data, ensure_ascii=False, indent=2)
     return HttpResponse(json_str)
 
