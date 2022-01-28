@@ -1,3 +1,4 @@
+import re
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.http import JsonResponse
@@ -20,6 +21,16 @@ def gsel(request):
 
 def create(request): 
     groupid = str(uuid.uuid4())
+    groupname = request.GET['groupname']
+    group = Group(groupid=groupid,groupname=groupname)
+    group.save()
+
+    data = list(Group.objects.filter(groupid=groupid).values())
+    json_str = json.dumps(data, ensure_ascii=False, indent=2) 
+    return HttpResponse(json_str)
+
+def update(request):
+    groupid = request.GET['groupid']
     groupname = request.GET['groupname']
     group = Group(groupid=groupid,groupname=groupname)
     group.save()

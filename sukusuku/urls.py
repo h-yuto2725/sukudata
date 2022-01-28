@@ -30,6 +30,7 @@ urlpatterns = [
     path('glall/',group.find,name='glall'),
     path('glsel/',group.gsel,name='glsel'),
     path('gladd/',group.create,name='gladd'),
+    path('glupd/',group.update,name='glupd'),
     path('gldel/',group.delete,name='gldel'),
     #クラス
     path('clall/',clas.find,name='clall'),
