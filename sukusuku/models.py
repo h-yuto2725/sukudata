@@ -97,6 +97,7 @@ class Todo(models.Model):
     userid = models.ForeignKey(User, on_delete=models.CASCADE)
     title = models.CharField(max_length=100)
     done = models.BooleanField(default=False)
+    date = models.CharField(max_length=100)
 
     def __str__(self):
         return '<Todo:title=' + str(self.title) + ', ' + str(self.userid) + '>'
