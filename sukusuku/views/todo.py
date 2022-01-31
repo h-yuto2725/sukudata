@@ -27,8 +27,10 @@ def create(request):
 
 def done(request):
     todoid = request.GET['id']
+    userid = request.GET['userid']
     done = request.GET['done']
-    todo = Todo(id=todoid,done=done)
+    useridtemp = User.objects.get(userid=userid)
+    todo = Todo(id=todoid,userid=useridtemp,done=done)
     todo.save()
 
     data = list(Todo.objects.filter(id=todoid).values())
