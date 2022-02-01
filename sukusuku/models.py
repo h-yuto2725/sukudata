@@ -55,7 +55,7 @@ class Timetable(models.Model):
     color = models.CharField(max_length=10)
     details = models.CharField(max_length=100)
     classid = models.ForeignKey(Class, on_delete=models.CASCADE)
-    timed = models.IntegerField()
+    timed = models.CharField(max_length=1)
     
     def __str__(self):
         return '<Timetable:title=' + str(self.title) + ', ' + self.details + '>'
