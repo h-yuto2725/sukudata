@@ -13,11 +13,11 @@ import pandas as pd
 @csrf_exempt
 def ttadd(request):
     if request.method == 'POST':
-        headers = ('title','start','end','color','classid','details')
+        headers = ('title','start','end','color','classid','details','timed')
         data = []
         df = pd.read_excel (request.body,sheet_name='Tablib Dataset',)
         for i in range(len(df)):
-            data.append([df.iat[i,0],df.iat[i,1],df.iat[i,2],df.iat[i,3],df.iat[i,4],df.iat[i,5]])
+            data.append([df.iat[i,0],df.iat[i,1],df.iat[i,2],df.iat[i,3],df.iat[i,4],df.iat[i,5],df.iat[i,6]])
         timetable_resource = resources.modelresource_factory(model=Timetable)()
         dataset = tablib.Dataset(*data, headers=headers)
         print(dataset)
@@ -35,7 +35,7 @@ def ttcreate(request):
     classid = request.GET['classid']
     details = request.GET['details']
     classidtemp = Class.objects.get(classid=classid)
-    timetable = Timetable(title=title,start=start,end=end,color=color,details=details,classid=classidtemp)
+    timetable = Timetable(title=title,start=start,end=end,color=color,details=details,classid=classidtemp,timed=1)
     timetable.save()
 
     data = list(Timetable.objects.filter(classid = classidtemp).values())
@@ -50,8 +50,9 @@ def ttupd(request):
     color = request.GET['color']
     classid = request.GET['classid']
     details = request.GET['details']
+    timed = request.GET['timed']
     classidtemp = Class.objects.get(classid=classid)
-    timetable = Timetable(id=ttid,title=title,start=start,end=end,color=color,details=details,classid=classidtemp)
+    timetable = Timetable(id=ttid,title=title,start=start,end=end,color=color,details=details,classid=classidtemp,timed=timed)
     timetable.save()
 
     data = list(Timetable.objects.filter(classid = classidtemp).values())
@@ -64,8 +65,6 @@ def ttsel(request):
     data = list(Timetable.objects.filter(classid = classtemp).values())
     json_str = json.dumps(data, ensure_ascii=False, indent=2) 
     return HttpResponse(json_str)
-
-
 
 def ttdel(request):
     ttid = request.GET['id']
