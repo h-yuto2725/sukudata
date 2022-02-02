@@ -49,8 +49,9 @@ def create(request):
     flag = request.GET['flag']
     note = request.GET['note']
     master = request.GET['master']
+    latest = 'new'
     usertemp = User.objects.get(userid=master)
-    thread = Thread(title=title,flag=flag,note=note,master=usertemp)
+    thread = Thread(title=title,flag=flag,note=note,master=usertemp,latest=latest)
     thread.save()
 
     data = list(Thread.objects.all().values())
@@ -88,8 +89,9 @@ def approve(request):
     flag = request.GET['flag']
     note = request.GET['note']
     master = request.GET['master']
+    latest = request.GET['latest']
     usertemp = User.objects.get(userid=master)
-    thread = Thread(threadid=threadid,title=title,flag=flag,note=note,master=usertemp)
+    thread = Thread(threadid=threadid,title=title,flag=flag,note=note,master=usertemp,latest=latest)
     thread.save()
 
     data = list(Thread.objects.all().values())
@@ -111,8 +113,9 @@ def delete(request):
     flag = request.GET['flag']
     note = request.GET['note']
     master = request.GET['master']
+    latest = request.GET['latest']
     usertemp = User.objects.get(userid=master)
-    thread = Thread(threadid=threadid,title=title,flag=flag,note=note,master=usertemp)
+    thread = Thread(threadid=threadid,title=title,flag=flag,note=note,master=usertemp,latest=latest)
     thread.save()
 
     data = list(Thread.objects.all().values())

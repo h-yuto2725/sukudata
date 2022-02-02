@@ -108,6 +108,7 @@ class Thread(models.Model):
     master = models.ForeignKey(User, on_delete=models.CASCADE)
     title = models.CharField(max_length=100)
     note = models.CharField(max_length=100)
+    latest = models.CharField(max_length=100,default='new')
     flag = models.CharField(max_length=1)
 
     def __str__(self):
@@ -118,6 +119,7 @@ class Comment(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     comment = models.CharField(max_length=100)
+    ptime = models.CharField(max_length=100,default='new')
     flag = models.BooleanField(default=True)
 
     def __str__(self):
