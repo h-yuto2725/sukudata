@@ -1,4 +1,4 @@
-from datetime import time
+from datetime import time, timedelta
 from django.shortcuts import render
 from django.conf import settings
 from django.http import HttpResponse
@@ -34,8 +34,9 @@ def ttcreate(request):
     color = request.GET['color']
     classid = request.GET['classid']
     details = request.GET['details']
+    timed = request.GET['timed']
     classidtemp = Class.objects.get(classid=classid)
-    timetable = Timetable(title=title,start=start,end=end,color=color,details=details,classid=classidtemp,timed=1)
+    timetable = Timetable(title=title,start=start,end=end,color=color,details=details,classid=classidtemp,timed=timed)
     timetable.save()
 
     data = list(Timetable.objects.filter(classid = classidtemp).values())
