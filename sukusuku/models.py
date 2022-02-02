@@ -52,10 +52,10 @@ class Timetable(models.Model):
     title = models.CharField(max_length=100)
     start = models.CharField(max_length=100)
     end = models.CharField(max_length=100)
-    color = models.CharField(max_length=10)
+    color = models.CharField(max_length=100)
     details = models.CharField(max_length=100)
     classid = models.ForeignKey(Class, on_delete=models.CASCADE)
-    timed = models.IntegerField()
+    timed = models.CharField(max_length=1)
     
     def __str__(self):
         return '<Timetable:title=' + str(self.title) + ', ' + self.details + '>'
@@ -68,7 +68,7 @@ class Schedule(models.Model):
     title = models.CharField(max_length=100)
     start = models.CharField(max_length=100)
     end = models.CharField(max_length=100)
-    color = models.CharField(max_length=10)
+    color = models.CharField(max_length=100)
     details = models.CharField(max_length=100)
     
     def __str__(self):
@@ -79,7 +79,7 @@ class GroupSchedule(models.Model):
     title = models.CharField(max_length=100)
     start = models.CharField(max_length=100)
     end = models.CharField(max_length=100)
-    color = models.CharField(max_length=10)
+    color = models.CharField(max_length=100)
     details = models.CharField(max_length=100)
     
     def __str__(self):
