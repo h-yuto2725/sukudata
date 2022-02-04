@@ -1,8 +1,8 @@
-#select,search,create,apply,reject,delete
+# select,search,create,apply,reject,delete
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.http import JsonResponse
-from ..models import Thread,User
+from ..models import Thread, User
 import json
 
 # Create your views here.
@@ -11,18 +11,21 @@ import json
     json_str = json.dumps(data, ensure_ascii=False, indent=2)
     return HttpResponse(json_str)'''
 
+
 def select(request):
     try:
         thid = request.GET['threadid']
         threadtemp = Thread.objects.get(threadid=thid)
-        data = list(Thread.objects.filter(threadid=threadtemp.threadid).values())
+        data = list(Thread.objects.filter(
+            threadid=threadtemp.threadid).values())
     except Exception:
         data = list(Thread.objects.all().values())
     json_str = json.dumps(data, ensure_ascii=False, indent=2)
     return HttpResponse(json_str)
 
+
 def search(request):
-    #キーワードが複数の可能性がある
+    # キーワードが複数の可能性がある
     try:
         kw = request.GET['title']
         data = list(Thread.objects.filter(title__contains=kw).values())
@@ -30,6 +33,7 @@ def search(request):
         data = list(Thread.objects.all().values())
     json_str = json.dumps(data, ensure_ascii=False, indent=2)
     return HttpResponse(json_str)
+
 
 '''def create(request): #メールアドレスで検索を行いJsonファイルでuser情報を表示する。
     mail = request.GET['mail']
@@ -44,6 +48,7 @@ def search(request):
     json_str = json.dumps(data, ensure_ascii=False, indent=2) 
     return HttpResponse(json_str)'''
 
+
 def create(request):
     title = request.GET['title']
     flag = request.GET['flag']
@@ -51,12 +56,14 @@ def create(request):
     master = request.GET['master']
     latest = 'new'
     usertemp = User.objects.get(userid=master)
-    thread = Thread(title=title,flag=flag,note=note,master=usertemp,latest=latest)
+    thread = Thread(title=title, flag=flag, note=note,
+                    master=usertemp, latest=latest)
     thread.save()
 
     data = list(Thread.objects.all().values())
-    json_str = json.dumps(data, ensure_ascii=False, indent=2) 
+    json_str = json.dumps(data, ensure_ascii=False, indent=2)
     return HttpResponse(json_str)
+
 
 '''def delete(request):
     userid = request.GET['userid']
@@ -83,6 +90,7 @@ def create(request):
     json_str = json.dumps(data, ensure_ascii=False, indent=2) 
     return HttpResponse(json_str)'''
 
+
 def approve(request):
     threadid = request.GET['threadid']
     title = request.GET['title']
@@ -91,12 +99,14 @@ def approve(request):
     master = request.GET['master']
     latest = request.GET['latest']
     usertemp = User.objects.get(userid=master)
-    thread = Thread(threadid=threadid,title=title,flag=flag,note=note,master=usertemp,latest=latest)
+    thread = Thread(threadid=threadid, title=title, flag=flag,
+                    note=note, master=usertemp, latest=latest)
     thread.save()
 
     data = list(Thread.objects.all().values())
-    json_str = json.dumps(data, ensure_ascii=False, indent=2) 
+    json_str = json.dumps(data, ensure_ascii=False, indent=2)
     return HttpResponse(json_str)
+
 
 def reject(request):
     threadid = request.GET['threadid']
@@ -107,6 +117,7 @@ def reject(request):
     json_str = json.dumps(data, ensure_ascii=False, indent=2)
     return HttpResponse(json_str)
 
+
 def delete(request):
     threadid = request.GET['threadid']
     title = request.GET['title']
@@ -115,9 +126,10 @@ def delete(request):
     master = request.GET['master']
     latest = request.GET['latest']
     usertemp = User.objects.get(userid=master)
-    thread = Thread(threadid=threadid,title=title,flag=flag,note=note,master=usertemp,latest=latest)
+    thread = Thread(threadid=threadid, title=title, flag=flag,
+                    note=note, master=usertemp, latest=latest)
     thread.save()
 
     data = list(Thread.objects.all().values())
-    json_str = json.dumps(data, ensure_ascii=False, indent=2) 
+    json_str = json.dumps(data, ensure_ascii=False, indent=2)
     return HttpResponse(json_str)

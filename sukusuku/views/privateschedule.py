@@ -1,16 +1,19 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.http import JsonResponse
-from ..models import Schedule,User
+from ..models import Schedule, User
 import json
 
 # Create your views here.
-def find(request): #学籍番号で検索を行いJsonファイルでschedule情報を表示する
+
+
+def find(request):  # 学籍番号で検索を行いJsonファイルでschedule情報を表示する
     userid = request.GET['userid']
     data = list(Schedule.objects.filter(userid=userid).values())
-    json_str = json.dumps(data, ensure_ascii=False, indent=2) 
+    json_str = json.dumps(data, ensure_ascii=False, indent=2)
     print(json_str)
     return HttpResponse(json_str)
+
 
 def create(request):
     userid = request.GET['userid']
@@ -20,12 +23,14 @@ def create(request):
     color = request.GET['color']
     details = request.GET['details']
     useridtemp = User.objects.get(userid=userid)
-    schedules = Schedule(userid=useridtemp,title=title,start=start,end=end,color=color,details=details)
+    schedules = Schedule(userid=useridtemp, title=title,
+                         start=start, end=end, color=color, details=details)
     schedules.save()
 
     data = list(Schedule.objects.filter(userid=userid).values())
-    json_str = json.dumps(data, ensure_ascii=False, indent=2) 
+    json_str = json.dumps(data, ensure_ascii=False, indent=2)
     return HttpResponse(json_str)
+
 
 def update(request):
     scheduleid = request.GET['id']
@@ -36,12 +41,14 @@ def update(request):
     color = request.GET['color']
     details = request.GET['details']
     useridtemp = User.objects.get(userid=userid)
-    schedules = Schedule(id=scheduleid,userid=useridtemp,title=title,start=start,end=end,color=color,details=details)
+    schedules = Schedule(id=scheduleid, userid=useridtemp, title=title,
+                         start=start, end=end, color=color, details=details)
     schedules.save()
 
     data = list(Schedule.objects.filter(userid=userid).values())
-    json_str = json.dumps(data, ensure_ascii=False, indent=2) 
+    json_str = json.dumps(data, ensure_ascii=False, indent=2)
     return HttpResponse(json_str)
+
 
 def delete(request):
     userid = request.GET['userid']
@@ -50,5 +57,5 @@ def delete(request):
     schedule.delete()
 
     data = list(Schedule.objects.filter(userid=userid).values())
-    json_str = json.dumps(data, ensure_ascii=False, indent=2) 
+    json_str = json.dumps(data, ensure_ascii=False, indent=2)
     return HttpResponse(json_str)

@@ -8,36 +8,41 @@ import uuid
 
 # Create your views here.
 
-def find(request): 
+
+def find(request):
     data = list(Group.objects.all().values())
-    json_str = json.dumps(data, ensure_ascii=False, indent=2) 
+    json_str = json.dumps(data, ensure_ascii=False, indent=2)
     return HttpResponse(json_str)
 
-def gsel(request): 
+
+def gsel(request):
     groupid = request.GET['groupid']
     data = list(Group.objects.filter(groupid=groupid).values())
-    json_str = json.dumps(data, ensure_ascii=False, indent=2) 
+    json_str = json.dumps(data, ensure_ascii=False, indent=2)
     return HttpResponse(json_str)
 
-def create(request): 
+
+def create(request):
     groupid = str(uuid.uuid4())
     groupname = request.GET['groupname']
-    group = Group(groupid=groupid,groupname=groupname)
+    group = Group(groupid=groupid, groupname=groupname)
     group.save()
 
     data = list(Group.objects.filter(groupid=groupid).values())
-    json_str = json.dumps(data, ensure_ascii=False, indent=2) 
+    json_str = json.dumps(data, ensure_ascii=False, indent=2)
     return HttpResponse(json_str)
+
 
 def update(request):
     groupid = request.GET['groupid']
     groupname = request.GET['groupname']
-    group = Group(groupid=groupid,groupname=groupname)
+    group = Group(groupid=groupid, groupname=groupname)
     group.save()
 
     data = list(Group.objects.filter(groupid=groupid).values())
-    json_str = json.dumps(data, ensure_ascii=False, indent=2) 
+    json_str = json.dumps(data, ensure_ascii=False, indent=2)
     return HttpResponse(json_str)
+
 
 def delete(request):
     groupid = request.GET['groupid']
@@ -45,5 +50,5 @@ def delete(request):
     group.delete()
 
     data = list(Group.objects.all().values())
-    json_str = json.dumps(data, ensure_ascii=False, indent=2) 
+    json_str = json.dumps(data, ensure_ascii=False, indent=2)
     return HttpResponse(json_str)
