@@ -25,6 +25,7 @@ def ttadd(request):
         dataset = tablib.Dataset(*data, headers=headers)
         timetable_resource.import_data(dataset)
         classidtemp = Class.objects.get(classid=df.iat[0,4])
+        print(classidtemp)
 
         data = list(Class.objects.filter(classid=classidtemp).values())
         json_str = json.dumps(data, ensure_ascii=False, indent=2)
