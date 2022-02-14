@@ -1,4 +1,4 @@
-from datetime import datetime, time, timedelta
+from datetime import date, datetime, time, timedelta
 from django.shortcuts import render
 from django.conf import settings
 from django.http import HttpResponse
@@ -24,10 +24,15 @@ def ttadd(request):
         timetable_resource = resources.modelresource_factory(model=Timetable)()
         dataset = tablib.Dataset(*data, headers=headers)
         timetable_resource.import_data(dataset)
-        classidtemp = Class.objects.get(classid=df.iat[0,4])
-        print(classidtemp)
 
-        data = list(Class.objects.filter(classid=classidtemp).values())
+        classidtemp = Class.objects.get(classid=df.iat[0,4])
+        uptime = datetime.now()
+        details = '時間割が一括追加されました。'
+
+        notice = Notice(uptime=uptime,classid=classidtemp,details=details)
+        notice.save()
+
+        data = list(Timetable.objects.filter(classid=classidtemp).values())
         json_str = json.dumps(data, ensure_ascii=False, indent=2)
         return HttpResponse(json_str)
 
@@ -111,11 +116,5 @@ def noticesel(request):
     json_str = json.dumps(data, ensure_ascii=False, indent=2)
     return HttpResponse(json_str)
 
-def noticeadd(request):                     #一括登録の時用
-    uptime = request.GET['uptime']
-    classid = request.GET['classid']
-    details = '時間割が一括追加されました。'
-    classidtemp = Class.objects.get(classid=classid)
 
-    notice = Notice(uptime=uptime,classid=classidtemp,details=details)
-    notice.save()
+    
