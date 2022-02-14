@@ -144,4 +144,4 @@ class Notice(models.Model):
     details = models.CharField(max_length=100) #変更された日(2/19日の予定が変更されました)
 
     def __str__(self):
-        return '<Notice:変更された日=' + self.seltime + ', ' + str(self.classid) + '>'
+        return '<Notice:変更された日=' + self.details + ', ' + str(self.classid) + '>'

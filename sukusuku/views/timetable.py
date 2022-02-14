@@ -47,12 +47,13 @@ def ttcreate(request):
     timed = request.GET['timed']
 
     uptime = request.GET['uptime']
-    uptime = uptime + 'の時間割が追加されました。'
 
     classidtemp = Class.objects.get(classid=classid)
     timetable = Timetable(title=title, start=start, end=end, color=color,
                           details=details, classid=classidtemp, timed=timed)
     timetable.save()
+
+    start = start + 'の時間割が追加されました。'
 
     notice = Notice(uptime=uptime,classid=classidtemp,details=start)
     notice.save()
@@ -73,12 +74,13 @@ def ttupd(request):
     timed = request.GET['timed']
 
     uptime = request.GET['uptime']
-    uptime = uptime + 'の時間割が変更されました。'
 
     classidtemp = Class.objects.get(classid=classid)
     timetable = Timetable(id=ttid, title=title, start=start, end=end,
                           color=color, details=details, classid=classidtemp, timed=timed)
     timetable.save()
+
+    start = start + 'の時間割が変更されました。'
 
     notice = Notice(uptime=uptime,classid=classidtemp,details=start)
     notice.save()
