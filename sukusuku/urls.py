@@ -80,5 +80,4 @@ urlpatterns = [
     path('cmdel/', comment.delete, name='cmdel'),
     # 通知
     path('noticesel/',timetable.noticesel,name='noticesel'),
-    path('noticeadd/',timetable.noticeadd,name='noticeadd'),
 ]
