@@ -1,7 +1,7 @@
 from django.contrib import admin
 from import_export import resources
 from import_export.admin import ImportExportModelAdmin
-from .models import Role
+from .models import Notice, Role
 from .models import User
 from .models import Group
 from .models import GroupDetails
@@ -9,7 +9,7 @@ from .models import GroupDetails
 from .models import Class, ClassDetails
 from .models import Timetable, Schedule, GroupSchedule
 from .models import Event, Todo
-from .models import Thread, Comment
+from .models import Thread, Comment,Notice
 
 
 class RoleResource(resources.ModelResource):
@@ -81,6 +81,12 @@ class CommentResource(resources.ModelResource):
     class Meta:
         model = Comment
 
+class NoticeResource(resources.ModelResource):
+    class Meta:
+        model = Notice
+
+#-----------------------------------------------------------
+
 
 class RoleAdmin(ImportExportModelAdmin):
     resource_class = RoleResource
@@ -133,6 +139,8 @@ class ThreadAdmin(ImportExportModelAdmin):
 class CommentAdmin(ImportExportModelAdmin):
     resource_class = CommentResource
 
+class NoticeAdmin(ImportExportModelAdmin):
+    resource_class = NoticeResource
 
 # Register your models here.
 admin.site.register(Role, RoleAdmin)
@@ -148,3 +156,4 @@ admin.site.register(Event, EventAdmin)
 admin.site.register(Todo, TodoAdmin)
 admin.site.register(Thread, ThreadAdmin)
 admin.site.register(Comment, CommentAdmin)
+admin.site.register(Notice, NoticeAdmin)

@@ -24,8 +24,11 @@ def ttadd(request):
         timetable_resource = resources.modelresource_factory(model=Timetable)()
         dataset = tablib.Dataset(*data, headers=headers)
         timetable_resource.import_data(dataset)
+        classidtemp = Class.objects.get(classid=df.iat[0,4])
 
-        return 
+        data = list(Class.objects.filter(classid=classidtemp).values())
+        json_str = json.dumps(data, ensure_ascii=False, indent=2)
+        return HttpResponse(json_str)
 
 
 def ttcreate(request):
@@ -48,7 +51,7 @@ def ttcreate(request):
     notice = Notice(uptime=uptime,classid=classidtemp,details=start)
     notice.save()
 
-    data = list(Class.objects.filter(classid=classidtemp).values())
+    data = list(Timetable.objects.filter(classid=classidtemp).values())
     json_str = json.dumps(data, ensure_ascii=False, indent=2)
     return HttpResponse(json_str)
 
@@ -99,7 +102,7 @@ def ttdel(request):
     json_str = json.dumps(data, ensure_ascii=False, indent=2)
     return HttpResponse(json_str)
 
-def noticesel(request):                     #表示用
+def noticesel(request):                 
     classid = request.GET['classid']
     classtemp = Class.objects.get(classid=classid)
 
