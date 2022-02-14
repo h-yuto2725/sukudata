@@ -93,7 +93,7 @@ def ttupd(request):
 def ttsel(request):
     classid = request.GET['classid']
     classtemp = Class.objects.get(classid=classid)
-    data = list(Timetable.objects.filter(classid__icontains=classtemp).values())
+    data = list(Timetable.objects.filter(classid=classtemp).values())
     json_str = json.dumps(data, ensure_ascii=False, indent=2)
     return HttpResponse(json_str)
 
