@@ -26,7 +26,7 @@ def ttadd(request):
         timetable_resource.import_data(dataset)
 
         classidtemp = Class.objects.get(classid=df.iat[0,4])
-        uptime = datetime.now()
+        uptime = datetime.now().strftime('%Y-%m-%dT%H:%M')
         details = '時間割が一括追加されました。'
 
         notice = Notice(uptime=uptime,classid=classidtemp,details=details)
