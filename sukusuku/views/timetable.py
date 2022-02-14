@@ -53,7 +53,7 @@ def ttcreate(request):
                           details=details, classid=classidtemp, timed=timed)
     timetable.save()
 
-    start = start + 'の時間割が追加されました。'
+    start = start[0:16] + 'の時間割が追加されました。'
 
     notice = Notice(uptime=uptime,classid=classidtemp,details=start)
     notice.save()
@@ -80,7 +80,7 @@ def ttupd(request):
                           color=color, details=details, classid=classidtemp, timed=timed)
     timetable.save()
 
-    start = start + 'の時間割が変更されました。'
+    start = start[0:16] + 'の時間割が変更されました。'
 
     notice = Notice(uptime=uptime,classid=classidtemp,details=start)
     notice.save()
