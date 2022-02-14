@@ -137,3 +137,11 @@ class Comment(models.Model):
 
     def __str__(self):
         return '<Comment:comment=' + str(self.comment) + ', ' + str(self.thread) + '>'
+
+class Notice(models.Model):
+    uptime = models.CharField(max_length=100) #変更した日時(2月12日12時30分に変更しました)
+    classid = models.ForeignKey(Class, on_delete=models.CASCADE)
+    details = models.CharField(max_length=100) #変更された日(2/19日の予定が変更されました)
+
+    def __str__(self):
+        return '<Notice:変更された日=' + self.seltime + ', ' + str(self.classid) + '>'

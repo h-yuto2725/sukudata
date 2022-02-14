@@ -78,4 +78,7 @@ urlpatterns = [
     path('cmsel/', comment.select, name='cmsel'),
     path('cmadd/', comment.create, name='cmadd'),
     path('cmdel/', comment.delete, name='cmdel'),
+    # 通知
+    path('noticesel/',timetable.noticesel,name='noticesel'),
+    path('noticeadd/',timetable.noticeadd,name='noticeadd'),
 ]

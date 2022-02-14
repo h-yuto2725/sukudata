@@ -1,15 +1,13 @@
-from datetime import time, timedelta
+from datetime import datetime, time, timedelta
 from django.shortcuts import render
 from django.conf import settings
 from django.http import HttpResponse
-from ..models import Timetable, Class
+from ..models import Timetable, Class,Notice
 from import_export import resources
 from django.views.decorators.csrf import csrf_exempt
 import json
 import tablib
 import pandas as pd
-
-# Create your views here.
 
 
 @csrf_exempt
@@ -19,17 +17,15 @@ def ttadd(request):
                    'classid', 'details', 'timed')
         data = []
         df = pd.read_excel(request.body, sheet_name='Tablib Dataset',)
+        classid = df.iat[0,4]
         for i in range(len(df)):
             data.append([df.iat[i, 0], df.iat[i, 1], df.iat[i, 2],
                         df.iat[i, 3], df.iat[i, 4], df.iat[i, 5], df.iat[i, 6]])
         timetable_resource = resources.modelresource_factory(model=Timetable)()
         dataset = tablib.Dataset(*data, headers=headers)
-        print(dataset)
         timetable_resource.import_data(dataset)
 
-        data = list(Timetable.objects.all().values())
-        json_str = json.dumps(data, ensure_ascii=False, indent=2)
-        return HttpResponse(json_str)
+        return classid
 
 
 def ttcreate(request):
@@ -40,10 +36,17 @@ def ttcreate(request):
     classid = request.GET['classid']
     details = request.GET['details']
     timed = request.GET['timed']
+
+    uptime = request.GET['uptime']
+    uptime = uptime + 'の時間割が追加されました。'
+
     classidtemp = Class.objects.get(classid=classid)
     timetable = Timetable(title=title, start=start, end=end, color=color,
                           details=details, classid=classidtemp, timed=timed)
     timetable.save()
+
+    notice = Notice(uptime=uptime,classid=classidtemp,details=start)
+    notice.save()
 
     data = list(Timetable.objects.filter(classid=classidtemp).values())
     json_str = json.dumps(data, ensure_ascii=False, indent=2)
@@ -59,10 +62,17 @@ def ttupd(request):
     classid = request.GET['classid']
     details = request.GET['details']
     timed = request.GET['timed']
+
+    uptime = request.GET['uptime']
+    uptime = uptime + 'の時間割が変更されました。'
+
     classidtemp = Class.objects.get(classid=classid)
     timetable = Timetable(id=ttid, title=title, start=start, end=end,
                           color=color, details=details, classid=classidtemp, timed=timed)
     timetable.save()
+
+    notice = Notice(uptime=uptime,classid=classidtemp,details=start)
+    notice.save()
 
     data = list(Timetable.objects.filter(classid=classidtemp).values())
     json_str = json.dumps(data, ensure_ascii=False, indent=2)
@@ -88,3 +98,20 @@ def ttdel(request):
     data = list(Timetable.objects.filter(classid=classtemp).values())
     json_str = json.dumps(data, ensure_ascii=False, indent=2)
     return HttpResponse(json_str)
+
+def noticesel(request):                     #表示用
+    classid = request.GET['classid']
+    classtemp = Class.objects.get(classid=classid)
+
+    data = list(Notice.objects.filter(classid=classtemp).values()[:10])
+    json_str = json.dumps(data, ensure_ascii=False, indent=2)
+    return HttpResponse(json_str)
+
+def noticeadd(request):                     #一括登録の時用
+    uptime = request.GET['uptime']
+    classid = request.GET['classid']
+    details = '時間割が一括追加されました。'
+    classidtemp = Class.objects.get(classid=classid)
+
+    notice = Notice(uptime=uptime,classid=classidtemp,details=details)
+    notice.save()
