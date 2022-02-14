@@ -25,7 +25,7 @@ def ttadd(request):
         dataset = tablib.Dataset(*data, headers=headers)
         timetable_resource.import_data(dataset)
 
-        return classid
+        return 
 
 
 def ttcreate(request):
@@ -48,7 +48,7 @@ def ttcreate(request):
     notice = Notice(uptime=uptime,classid=classidtemp,details=start)
     notice.save()
 
-    data = list(Timetable.objects.filter(classid=classidtemp).values())
+    data = list(Class.objects.filter(classid=classidtemp).values())
     json_str = json.dumps(data, ensure_ascii=False, indent=2)
     return HttpResponse(json_str)
 
