@@ -114,7 +114,7 @@ def noticesel(request):
     classid = request.GET['classid']
     classtemp = Class.objects.get(classid=classid)
 
-    data = list(Notice.objects.filter(classid=classtemp).values()[:10])
+    data = list(Notice.objects.filter(classid=classtemp).values().order_by('-id')[:10])
     json_str = json.dumps(data, ensure_ascii=False, indent=2)
     return HttpResponse(json_str)
 
