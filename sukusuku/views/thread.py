@@ -2,7 +2,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.http import JsonResponse
-from ..models import Thread, User
+from ..models import Thread, User,ThreadNotice
 import json
 
 # Create your views here.
@@ -54,11 +54,17 @@ def create(request):
     flag = request.GET['flag']
     note = request.GET['note']
     master = request.GET['master']
+    details = request.GET['details']
     latest = 'new'
     usertemp = User.objects.get(userid=master)
     thread = Thread(title=title, flag=flag, note=note,
                     master=usertemp, latest=latest)
     thread.save()
+
+    details = title + details
+    threadnotice = ThreadNotice(userid=usertemp,details=details)
+
+    threadnotice.save()
 
     data = list(Thread.objects.all().values())
     json_str = json.dumps(data, ensure_ascii=False, indent=2)
@@ -98,10 +104,17 @@ def approve(request):
     note = request.GET['note']
     master = request.GET['master']
     latest = request.GET['latest']
+    details = request.GET['details']
     usertemp = User.objects.get(userid=master)
     thread = Thread(threadid=threadid, title=title, flag=flag,
                     note=note, master=usertemp, latest=latest)
     thread.save()
+
+    details = title + details
+    threadnotice = ThreadNotice(userid=usertemp,details=details)
+
+    threadnotice.save()
+
 
     data = list(Thread.objects.all().values())
     json_str = json.dumps(data, ensure_ascii=False, indent=2)
@@ -110,8 +123,17 @@ def approve(request):
 
 def reject(request):
     threadid = request.GET['threadid']
+    title = request.GET['title']
+    master = request.GET['master']
+    details = request.GET['details']
     thread = Thread.objects.get(threadid=threadid)
     thread.delete()
+
+    usertemp = User.objects.get(userid=master)
+    details = title + details
+    threadnotice = ThreadNotice(userid=usertemp,details=details)
+
+    threadnotice.save()
 
     data = list(Thread.objects.all().values())
     json_str = json.dumps(data, ensure_ascii=False, indent=2)
@@ -125,11 +147,25 @@ def delete(request):
     note = request.GET['note']
     master = request.GET['master']
     latest = request.GET['latest']
+    details = request.GET['details']
     usertemp = User.objects.get(userid=master)
     thread = Thread(threadid=threadid, title=title, flag=flag,
                     note=note, master=usertemp, latest=latest)
     thread.save()
 
+    details = title + details
+    threadnotice = ThreadNotice(userid=usertemp,details=details)
+
+    threadnotice.save()
+
     data = list(Thread.objects.all().values())
+    json_str = json.dumps(data, ensure_ascii=False, indent=2)
+    return HttpResponse(json_str)
+
+def threadnotice(request):
+    userid = request.GET['userid']
+    usertemp = User.objects.get(userid=userid)
+
+    data = list(ThreadNotice.objects.filter(userid=usertemp).values().order_by('-id')[:10])
     json_str = json.dumps(data, ensure_ascii=False, indent=2)
     return HttpResponse(json_str)

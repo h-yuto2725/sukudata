@@ -1,7 +1,7 @@
 from django.contrib import admin
 from import_export import resources
 from import_export.admin import ImportExportModelAdmin
-from .models import Notice, Role
+from .models import Notice, Role, ThreadNotice
 from .models import User
 from .models import Group
 from .models import GroupDetails
@@ -85,6 +85,10 @@ class NoticeResource(resources.ModelResource):
     class Meta:
         model = Notice
 
+class ThreadNoticeResource(resources.ModelResource):
+    class Meta:
+        model = ThreadNotice
+
 #-----------------------------------------------------------
 
 
@@ -142,6 +146,9 @@ class CommentAdmin(ImportExportModelAdmin):
 class NoticeAdmin(ImportExportModelAdmin):
     resource_class = NoticeResource
 
+class ThreadNoticeAdmin(ImportExportModelAdmin):
+    resource_class = ThreadNoticeResource
+
 # Register your models here.
 admin.site.register(Role, RoleAdmin)
 admin.site.register(User, UserAdmin)
@@ -157,3 +164,4 @@ admin.site.register(Todo, TodoAdmin)
 admin.site.register(Thread, ThreadAdmin)
 admin.site.register(Comment, CommentAdmin)
 admin.site.register(Notice, NoticeAdmin)
+admin.site.register(ThreadNotice, ThreadNoticeAdmin)

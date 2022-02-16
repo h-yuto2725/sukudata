@@ -145,3 +145,10 @@ class Notice(models.Model):
 
     def __str__(self):
         return '<Notice:変更された日=' + self.details + ', ' + str(self.classid) + '>'
+
+class ThreadNotice(models.Model):
+    userid = models.ForeignKey(User, on_delete=models.CASCADE)
+    details = models.CharField(max_length=100)
+
+    def __str__(self):
+        return '<Notice:状態=' + self.details + ', ' + str(self.classid) + '>'
